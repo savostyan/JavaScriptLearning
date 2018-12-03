@@ -6,7 +6,7 @@ git push
 
 
 
-
+git remote - какие репозитории уже настроены
 git status
 git add -A - добавить все измененные файлы
 git checkout -- script.js - исключить файл из индекса
