@@ -48,9 +48,23 @@ let appData = {
     savings: false
 };
 
-console.log("Наша программа включает в себя данные: ");
-for (let data in appData) {
-    console.log(data);
+function getExpencesSum(){
+    let expenSum = 0;
+    for (let expName in appData.expenses){
+        expenSum += +appData.expenses[expName];
+    }
+    return expenSum;
+}
+
+function savingsReCalculate(){
+    let sum = +sumValue.value,
+    percent = +percentValue.value;
+
+    appData.monthIncome = sum / 100 / 12 * percent;
+    appData.yearIncome = sum / 100 * percent;
+
+    monthSavingsValue.textContent = appData.monthIncome.toFixed(1);
+    yearSavingsValue.textContent = appData.yearIncome.toFixed(1);
 }
 
 startCalcBtn.addEventListener('click', function(){    
@@ -89,7 +103,6 @@ expensesBtn.addEventListener('click', function(){
             i = i - 1;
         }
     }
-
     expensesValue.textContent = sum;
 });
 
@@ -104,7 +117,9 @@ optionalExpensesBtn.addEventListener('click', function(){
 
 countBtn.addEventListener('click', function(){
     if(appData.budjet != undefined){
-        appData.moneyPerDay = (appData.budjet / 30).toFixed();
+        let expenSum = getExpencesSum();
+        
+        appData.moneyPerDay = ((appData.budjet - expenSum)/ 30).toFixed();
         dayBudgetValue.textContent = appData.moneyPerDay;
     
         if (appData.moneyPerDay < 100) {
@@ -139,17 +154,6 @@ checkSavings.addEventListener('click', function(){
         appData.savings = true;
     }
 });
-
-function savingsReCalculate(){
-    let sum = +sumValue.value,
-            percent = +percentValue.value;
-
-        appData.monthIncome = sum / 100 / 12 * percent;
-        appData.yearIncome = sum / 100 * percent;
-
-        monthSavingsValue.textContent = appData.monthIncome.toFixed(1);
-        yearSavingsValue.textContent = appData.yearIncome.toFixed(1);
-}
 
 sumValue.addEventListener('input', function(){
     if (appData.savings == true){
