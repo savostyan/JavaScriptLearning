@@ -67,19 +67,13 @@ window.addEventListener('DOMContentLoaded', function(){
         function updateClock(){
             let t = getTimeRemaining(endTime);
             
-            if (t.total > 0){
-
-                hours.textContent = getNormalizedTimeNumber(t.hours);
-                minutes.textContent = getNormalizedTimeNumber(t.minutes);
-                seconds.textContent = getNormalizedTimeNumber(t.seconds);
-
-                return;
+            if (t.total <= 0){
+                clearInterval(timeInterval);
             }
 
-            clearInterval(timeInterval);
-            hours.textContent = "00";
-            minutes.textContent = "00";
-            seconds.textContent = "00";
+            hours.textContent = getNormalizedTimeNumber(t.hours > 0 ? t.hours : 0);
+            minutes.textContent = getNormalizedTimeNumber(t.minutes > 0 ? t.minutes : 0);
+            seconds.textContent = getNormalizedTimeNumber(t.seconds > 0 ? t.seconds : 0);
         }
     }
 
