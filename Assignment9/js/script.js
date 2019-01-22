@@ -86,18 +86,30 @@ window.addEventListener('DOMContentLoaded', function(){
     //Modal
 
     let more = document.querySelector('.more');
-    let overlay = document.querySelector('.overlay');
-    let close = document.querySelector('.popup-close');
+    function showModalWindow(sourceElem){
+        let overlay = document.querySelector('.overlay');
+        let close = document.querySelector('.popup-close');
 
-    more.addEventListener('click', function(){
-        overlay.style.display = 'block';
-        this.classList.add('more-splash');
-        document.body.style.overflow = 'hidden';
-    });
+        sourceElem.addEventListener('click', function(){
+            overlay.style.display = 'block';
+            this.classList.add('more-splash');
+            document.body.style.overflow = 'hidden';
+        });
 
-    close.addEventListener('click', function(){
-        overlay.style.display = 'none';
-        more.classList.remove('more-splash');
-        document.body.style.overflow = '';
-    });
+        close.addEventListener('click', function(){
+            overlay.style.display = 'none';
+            sourceElem.classList.remove('more-splash');
+            document.body.style.overflow = '';
+        }); 
+    }
+
+    showModalWindow(more);
+
+    let knowMore = document.querySelectorAll('.description-btn');
+        
+    for (let i = 0; i < knowMore.length; i++){
+        knowMore[i].addEventListener('click', function(elem){
+            showModalWindow(this);
+        });
+    }  
 })
