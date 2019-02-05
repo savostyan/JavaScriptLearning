@@ -58,8 +58,11 @@ window.addEventListener('DOMContentLoaded', function(){
     let knowMore = document.querySelectorAll('.description-btn');
         
     for (let i = 0; i < knowMore.length; i++){
-        knowMore[i].addEventListener('click', function(elem){
+        knowMore[i].addEventListener('click', function(){
             showModalWindow(this);
         });
     }
+
+    
+
 })
