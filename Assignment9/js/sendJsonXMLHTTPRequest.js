@@ -14,17 +14,22 @@
     form.addEventListener('submit', function(event){
         event.preventDefault();
         let request = new XMLHttpRequest();
-        let promise = new Promise(resolve, reject)
-        {
+        let promise = new Promise(function(resolve, reject) {
             sendRequest(request);
-        }
-        request.addEventListener('readystatechange', function(){
-            statusMessage.innerHTML = getStatusMessage(request);
+            let msg = getStatusMessage(request);
+            resolve(msg);
         });
         
-        for (let i = 0; i < input.length; i++){
-            input[i].value = '';
-        }
+        promise.then(function(successMsg){
+            request.addEventListener('readystatechange', function(){
+                statusMessage.innerHTML = successMsg;
+                console.log(successMsg);
+            });
+
+            for (let i = 0; i < input.length; i++){
+                input[i].value = '';
+            }
+        });
     });
 
     function getStatusMessage(request){
@@ -40,7 +45,7 @@
     function sendRequest(request){
         form.appendChild(statusMessage);
 
-        request.open('POST', 'server.php');
+        request.open('POST', 'http://127.0.0.1:3000/hello');
         request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
         
         let formData = new FormData(form);
