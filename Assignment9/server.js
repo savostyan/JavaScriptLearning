@@ -28,7 +28,7 @@ var index = fs.readFileSync('index.html');
 // Create an instance of the http server to handle HTTP requests
 let app = http.createServer((req, res) => {  
     let mimeType = getMimeType(req.url);
-    if (req.url === '/index.html'){
+    if (req.url === '/' || req.url === '/index.html'){
         res.writeHead(200, {"Content-Type": 'text/html'}); 
         res.write(index); 
         res.end();
